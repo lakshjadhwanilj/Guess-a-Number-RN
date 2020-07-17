@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 // CORE COMPONENTS
 import { View, StyleSheet, Text, Button, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 // CUSTOM COMPONENTS
-import Card from '../components/Card.styles';
-import Input from '../components/Input.styles';
+import Card from '../components/Card.component';
+import Input from '../components/Input.component';
 import NumberContainer from '../components/NumberContainer.component';
 // CONSTANTS
 import Colors from '../constants/colors';
 
-const StartGameScreen = () => {
+const StartGameScreen = props => {
 
     const [enteredValue, setEnteredValue] = useState('');
     const [confirmed, setConfirmed] = useState(false);
@@ -41,7 +41,7 @@ const StartGameScreen = () => {
             <Card style={styles.summaryContainer}>
                 <Text>You Selected</Text>
                 <NumberContainer>{selectedNumber}</NumberContainer>
-                <Button title='START GAME' />
+                <Button title='START GAME' onPress={() => props.onStartGame(selectedNumber)} />
             </Card>
         )
     }
@@ -85,7 +85,8 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 20,
-        marginVertical: 10
+        marginVertical: 10,
+        fontFamily: 'open-sans-bold'
     },
     inputContainer: {
         width: 300,
