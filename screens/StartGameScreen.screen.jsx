@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 // CORE COMPONENTS
-import { View, StyleSheet, Text, Button, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
+import { View, StyleSheet, Button, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 // CUSTOM COMPONENTS
 import Card from '../components/Card.component';
 import Input from '../components/Input.component';
+import PrimaryButton from '../components/PrimaryButton.component';
 import NumberContainer from '../components/NumberContainer.component';
+import TitleText from '../components/TitleText.component';
+import BodyText from '../components/BodyText.component';
 // CONSTANTS
 import Colors from '../constants/colors';
 
@@ -39,9 +42,11 @@ const StartGameScreen = props => {
     if (confirmed) {
         confirmedOutput = (
             <Card style={styles.summaryContainer}>
-                <Text>You Selected</Text>
+                <BodyText>You Selected</BodyText>
                 <NumberContainer>{selectedNumber}</NumberContainer>
-                <Button title='START GAME' onPress={() => props.onStartGame(selectedNumber)} />
+                <PrimaryButton onPress={() => props.onStartGame(selectedNumber)}>
+                    START GAME
+                </PrimaryButton>
             </Card>
         )
     }
@@ -49,9 +54,9 @@ const StartGameScreen = props => {
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
             <View style={styles.screen}>
-                <Text style={styles.title}> Start New Game! </Text>
+                <TitleText style={styles.title}> Start New Game! </TitleText>
                 <Card style={styles.inputContainer}>
-                    <Text> Select a Number </Text>
+                    <BodyText> Select a Number </BodyText>
                     <Input
                         blurOnSubmit
                         autoCapitalize='none'
@@ -86,7 +91,6 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         marginVertical: 10,
-        fontFamily: 'open-sans-bold'
     },
     inputContainer: {
         width: 300,
