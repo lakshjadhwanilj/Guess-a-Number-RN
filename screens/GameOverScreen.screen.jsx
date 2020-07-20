@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 // CORE COMPONENTS
 import { View, StyleSheet, Image, Text, Dimensions, ScrollView } from 'react-native';
 // CUSTOM COMPONENTS
@@ -10,11 +10,26 @@ import Colors from '../constants/colors';
 
 const GameOverScreen = props => {
 
+    const [availableDeviceWidth, setAvailableDeviceWidth] = useState(Dimensions.get('window').width * 0.7);
+
+    useEffect(() => {
+        const updateLayout = () => setAvailableDeviceWidth(Dimensions.get('window').width * 0.7);
+        Dimensions.addEventListener('change', updateLayout);
+        return () => Dimensions.removeEventListener('change', updateLayout);
+    });
+
     return (
         <ScrollView>
             <View style={styles.screen}>
                 <TitleText>GAME OVER</TitleText>
-                <View style={styles.imgContainer}>
+                <View style={{
+                    ...styles.imgContainer,
+                    ...{
+                        width: availableDeviceWidth,
+                        height: availableDeviceWidth,
+                        borderRadius: availableDeviceWidth / 2
+                    }
+                }}>
                     <Image
                         source={require('../assets/success.png')}
                         style={styles.img}
@@ -42,13 +57,10 @@ const styles = StyleSheet.create({
         paddingVertical: 10
     },
     imgContainer: {
-        width: Dimensions.get('window').width * 0.7,
-        height: Dimensions.get('window').width * 0.7,
+        marginVertical: Dimensions.get('window').height / 30,
         borderColor: '#000',
-        borderRadius: Dimensions.get('window').width * 0.7 / 2,
         borderWidth: 3,
         overflow: 'hidden',
-        marginVertical: Dimensions.get('window').height / 30
     },
     img: {
         width: '100%',
